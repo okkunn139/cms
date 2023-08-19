@@ -14,6 +14,7 @@
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\HomeController;
 
 //本ダッシュボード表示
 Route::get('/', [BooksController::class, 'index']);
@@ -30,8 +31,7 @@ Route::post('/books/update', [BooksController::class, 'update']);
 //削除処理
 Route::delete('/book/{book}', [BooksController::class, 'destroy']);
 
-
+//Auth
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [BooksController::class, 'index'])->name('home');
 

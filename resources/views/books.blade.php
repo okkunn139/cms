@@ -12,7 +12,7 @@
         <!-- バリデーションエラーの表示に使用-->
         
         <!-- 本のタイトル -->
-        <form action="{{ url('books') }}" method="POST" class="form-horizontal">
+        <form enctype="multipart/form-data" action="{{ url('books') }}" method="POST" class="form-horizontal">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -37,6 +37,12 @@
                 </div>
             </div>
             
+            <!-- file追加 -->
+            <div class="col-sm-6">
+                <label>画像</label>
+                <input type="file" name="item_img">
+            </div>
+            
             <!-- 本登録ボタン -->
             <div class="form-row">
                 <div class="col-sm-offset-3 col-sm-6">
@@ -47,6 +53,13 @@
             </div>
         </form>
     </div>
+    
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+    
     <!-- Book: 既に登録されてる本のリスト -->
     <!-- 現在の本 -->
     @if (count($books) > 0)
@@ -65,6 +78,7 @@
                             <!-- 本タイトル -->
                             <td class="table-text">
                                 <div> {{ $book->item_name }} </div>
+                                <div> <img src="./upload/{{$book->item_img}}" width="100"> </div>
                             </td>
                             
                             <!-- 本：更新ボタン -->
